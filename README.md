@@ -57,7 +57,7 @@ para atualizar um produto específico, segue o seguinte esquema:
 
     Onde o body possui a seguinte estrutura:
     {
-        product_    id: number
+        product_id: number
         product: {
             nome: string,
             preco: number,
