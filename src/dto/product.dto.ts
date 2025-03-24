@@ -1,10 +1,10 @@
-import { IsString, IsInt, minLength } from "class-validator";
+import { IsString, IsDecimal, IsInt , minLength } from "class-validator";
 export class ProductDto {
 
     @IsString({message:"Deve ser string"})
     nome: string; 
 
-    @IsInt({message: "Deve ser um valor inteiro"})
+    @IsDecimal()
     preco: string;
 
     @IsString({message:"Deve ser uma string"})

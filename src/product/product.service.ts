@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { LojaService } from 'src/loja/loja.service';
 import { ProductInterface } from 'src/interfaces/Product.interface';
-import { ProductDto } from 'src/dto/product.pdo';
+import { ProductDto } from 'src/dto/product.DTO';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
@@ -103,7 +103,7 @@ export class ProductService {
     updateProduct(productId:number, product:ProductDto){
         if(productId && product){
             const produtoIndex = this.produtos.findIndex(elem => elem.id == productId);
-            if(productId < 0) throw new NotFoundException("Produto não encontrado");
+            if(produtoIndex < 0) throw new NotFoundException("Produto não encontrado");
             this.produtos[produtoIndex] = product;
             return { "message": "Produto atualizado !" };
         }
