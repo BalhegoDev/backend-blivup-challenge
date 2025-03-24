@@ -31,6 +31,8 @@ export class ProductService {
         "Torta de Frango"
     ];
     
+    // esse método não é utilizado em nenhuma rota
+    // seu uso é dado em gerar os produtos após a inicialização do service
     private gerarProdutos() {
         const lojas = this.lojaService.getAllLojas();
         if (!lojas.length) {
@@ -65,10 +67,12 @@ export class ProductService {
 
     postLojaProduct(lojaId:number, product:ProductDto){
         if(lojaId && product){
+            if(lojaId !== product.id_loja) throw new HttpException("O id fornecido sobre a loja não confere com o id fornecido para o produto.", HttpStatus.BAD_REQUEST);
+            
             const loja = this.lojaService.getLojaById(lojaId);
             if(!loja) throw new NotFoundException("Loja não encontrada !");
-            const lojaProducts = this.produtos.filter(elem => elem.id_loja === lojaId);
             this.produtos.push({id: this.produtos.length + 1, ...product});
+            const lojaProducts = this.produtos.filter(elem => elem.id_loja === lojaId);
             return {
                 "message": "produto cadastrado com sucesso !",
                 "produto_cadastrado": product.nome,

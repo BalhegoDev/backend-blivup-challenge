@@ -1,6 +1,6 @@
-import { Controller,Get,Param,Post } from '@nestjs/common';
+import { Body, Controller,Get,Param,Post } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { ParseIntPipe } from '@nestjs/common';
+import { ParseIntPipe, ValidationPipe } from '@nestjs/common';
 
 @Controller('product')
 export class ProductController {
@@ -13,6 +13,10 @@ export class ProductController {
         return this.productService.getAllLojaProducts(id)
     }
 
-    
+    @Post("insertProduct")
+    postProduct(@Body() body)
+    {
+        return this.productService.postLojaProduct(body.loja_id, body.product);
+    }
 
 }
