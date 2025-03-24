@@ -1,4 +1,4 @@
-import { Body, Controller,Get,Param,Post } from '@nestjs/common';
+import { Body, Controller,Delete,Get,Param,Post, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ParseIntPipe, ValidationPipe } from '@nestjs/common';
 
@@ -17,6 +17,13 @@ export class ProductController {
     postProduct(@Body() body)
     {
         return this.productService.postLojaProduct(body.loja_id, body.product);
+    }
+
+    
+    @Delete("deleteProduct")
+    deleteProduct(@Query() query){
+        const {productId,lojaId} = query;
+        return this.productService.deleteProduct( Number(productId), Number(lojaId) );
     }
 
 }

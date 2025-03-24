@@ -55,14 +55,14 @@ export class ProductService {
 
     getAllLojaProducts(lojaId:number)
     {
-        if(lojaId){
+        if(lojaId > 0){
             const loja = this.lojaService.getLojaById(lojaId);
             if(!loja) throw new NotFoundException("Empresa não encontrada");
             const produtos = this.produtos.filter(elem => elem.id_loja == lojaId);
-            if(produtos.length == 0)
-            return produtos;
+            if(produtos.length > 0) return produtos;
+            return { "message" : "A empresa não possui nenhum produto. " };
         }
-        throw new HttpException("Informe um id válido !",HttpStatus.BAD_REQUEST);
+        throw new HttpException("Insira um id válido !", HttpStatus.BAD_REQUEST);
     }
 
     postLojaProduct(lojaId:number, product:ProductDto){
